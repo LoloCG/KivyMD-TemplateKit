@@ -1,0 +1,32 @@
+MDBoxLayout:
+    md_bg_color: self.theme_cls.secondaryContainerColor
+    orientation: 'vertical'
+
+    MDTopAppBar: 
+        id: top_bar
+        md_bg_color: self.theme_cls.secondaryContainerColor
+        type: "small"
+        pos_hint: {"top": 1}
+        
+        MDTopAppBarLeadingButtonContainer:
+            MDActionTopAppBarButton:
+                icon: "menu"
+                # on_press: app.open_menu() # ???
+
+        MDTopAppBarTitle:
+            id: top_bar_title
+            halign: "left"    # This is what is keeping the trailing buttons on the right
+
+        MDTopAppBarTrailingButtonContainer:
+
+            MDActionTopAppBarButton:
+                icon: "home"
+                on_press: app.switch_screen("home_screen")
+
+            MDActionTopAppBarButton:
+                icon: "cog"
+                on_press: app.switch_screen("settings_screen")
+
+    
+    ScreenManager:
+        id: screen_manager
