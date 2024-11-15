@@ -26,7 +26,7 @@ class MainApp(MDApp):
 
     def add_theme_and_palette(self):
         theme = "Dark"
-        palette = "Olive" # "Olive", "Purple", "Red"
+        palette = "Pink" # "Olive", "Purple", "Red"
         self.theme_cls.theme_style = theme
         self.theme_cls.primary_palette = palette
         print(f"theme style = {theme}, primary_palette = {palette}")

@@ -1,0 +1,58 @@
+MDBoxLayout:
+    md_bg_color: self.theme_cls.primaryContainerColor
+    orientation: 'vertical'
+
+    MDTopAppBar:
+        md_bg_color: self.theme_cls.secondaryContainerColor
+        id: top_bar
+        type: "small"
+        pos_hint: {"top": 1}
+        size_hint_x: 1
+        
+        MDTopAppBarLeadingButtonContainer:
+            MDActionTopAppBarButton:
+                id: back_leading_button
+                icon: ""
+                on_press: app.go_back_screen()
+                
+        MDTopAppBarTitle:
+            # If changed, the TrailingButtonContainer gets to the left... do not touch
+            text: " "
+            halign: "left"
+
+        MDTopAppBarTrailingButtonContainer:
+            MDActionTopAppBarButton:
+                id: dots_menu
+                icon: "dots-vertical"
+                on_press: app.open_menu(self)
+
+    ScreenManager:
+        id: screen_manager
+
+    MDNavigationBar:
+        md_bg_color: self.theme_cls.secondaryContainerColor
+        halign: 'center'
+        MDNavigationItem:
+            on_press: app.switch_screen("second_screen")
+            MDNavigationItemIcon:
+                icon: "numeric-2" #"dumbbell"
+            MDNavigationItemLabel:
+                text: "Screen 2"
+                
+        MDNavigationItem:
+            active: True
+            on_press: app.switch_screen("home_screen")
+            MDNavigationItemIcon:
+                icon: "home"
+            MDNavigationItemLabel:
+                text: "Home"
+
+        MDNavigationItem:
+            on_press: app.switch_screen("third_screen")
+            MDNavigationItemIcon:
+                icon: "numeric-3" # "chart-line"
+            MDNavigationItemLabel:
+                text: "Screen 3"
+
+        
+
