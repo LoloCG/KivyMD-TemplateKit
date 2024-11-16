@@ -4,9 +4,63 @@ MDBoxLayout:
     name: "settings_screen"
     orientation: 'vertical'
     md_bg_color: self.theme_cls.secondaryContainerColor
+    
     MDLabel:
-        text: "Settings Screen"
+        text: "Settings"
         halign: "center"
+        pos_hint: {"top": 1}
+        size_hint_y: None
+        height: dp(56)
+        padding: dp(10)
+
+    ScrollView:
+        id: scroll_container
+        do_scroll_y: True
+        adaptive_height: True
+        bar_width: dp(10)
+
+        MDBoxLayout:
+            orientation: 'vertical'
+            spacing: dp(15)
+            padding: dp(20)
+            pos_hint: {"top": 1}
+            size_hint_y: None
+            adaptive_height: True
+
+            MDBoxLayout:
+                orientation: 'horizontal'
+                spacing: dp(10)
+                size_hint_y: None
+                height: dp(56)
+                pos_hint: {'center_x': .5, 'center_y': .5}
+
+                MDLabel:
+                    text: "Auto-Detect Theme"
+                    halign: "left"
+                MDSwitch:
+                    id: auto_detect_theme_switch
+                    ripple_effect: False
+
+            MDDivider:
+                size_hint_x: .5
+                pos_hint: {'center_x': .5, 'center_y': .5}
+
+            MDBoxLayout:
+                orientation: 'horizontal'
+                spacing: dp(10)
+                size_hint_y: None
+                height: dp(56)
+                pos_hint: {'center_x': .5, 'center_y': .5}
+                
+                MDLabel:
+                    text: "Light/Dark Theme"
+                    halign: "left"
+
+                MDSwitch:
+                    id: dark_mode_switch
+                    disabled: auto_detect_theme_switch.active
+                    ripple_effect: False
+
 """
 
 from kivymd.uix.screen import MDScreen
