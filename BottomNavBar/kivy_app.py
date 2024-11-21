@@ -1,5 +1,6 @@
 import os
 from kivymd.app import MDApp
+
 from kivy.uix.screenmanager import ScreenManager # not using MDScreenManager as i wont be using heroes
 from kivymd.uix.menu import MDDropdownMenu
 from kivymd.uix.dialog import MDDialog, MDDialogHeadlineText, MDDialogSupportingText, MDDialogButtonContainer
@@ -29,15 +30,6 @@ class MainApp(MDApp):
 
         return self.root
 
-    def add_theme_and_palette(self):
-        theme = "Dark"
-        palette = "Blue" # "Olive", "Purple", "Red"
-
-        self.theme_cls.theme_style = theme
-        self.theme_cls.primary_palette = palette
-
-        print(f"theme style = {theme}, primary_palette = {palette}")
-
     def add_screen(self, screen_name):
         if screen_name == "home_screen":
             self.sm.add_widget(HomeScreen(
@@ -64,6 +56,20 @@ class MainApp(MDApp):
     def on_stop(self):
         print("Closing KivyMD App.")
 
+    # ========================= Related to Styling =========================
+
+    def add_theme_and_palette(self):
+        palette = "Blue" # "Olive", "Purple", "Red"
+
+        self.theme_cls.primary_palette = palette
+
+        print(f"Primary_palette = {palette}")
+
+    def set_dark_mode(self, value):
+        print(f"Setting dark mode to {'ON' if value else 'OFF'}")
+        self.theme_cls.theme_style = "Dark" if value else "Light"
+
+    # ========================= Related to Screen changes =========================
     def switch_screen(self, screen_name):
         prev_screen = self.sm.current  
         if prev_screen == screen_name:
@@ -113,7 +119,8 @@ class MainApp(MDApp):
             back_leading_button.disabled = False
             back_leading_button.icon = "chevron-left"
 
-    def open_menu(self, button):
+    # ========================= Related to Menus and Dialogs =========================
+    def open_top_menu(self, button):
         menu_items = [{
                 "text": "Settings",
                 "leading_icon": "cog",

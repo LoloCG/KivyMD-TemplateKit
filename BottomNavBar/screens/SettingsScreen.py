@@ -1,4 +1,7 @@
 from kivy.lang import Builder
+from kivy.app import App
+from kivymd.uix.screen import MDScreen
+
 SettingsScreen_layout = """
 MDBoxLayout:
     name: "settings_screen"
@@ -60,10 +63,9 @@ MDBoxLayout:
                     id: dark_mode_switch
                     disabled: auto_detect_theme_switch.active
                     ripple_effect: False
-
 """
 
-from kivymd.uix.screen import MDScreen
+
 
 class SettingsScreen(MDScreen):
     def __init__(self, **kwargs):
@@ -74,8 +76,14 @@ class SettingsScreen(MDScreen):
         layout = Builder.load_string(SettingsScreen_layout)
         self.add_widget(layout)
 
+        layout.ids.auto_detect_theme_switch.bind(active=self.on_auto_detect_theme_changed)
+        layout.ids.dark_mode_switch.bind(active=self.on_dark_mode_changed)
+
     def on_enter(self):
         print(f'In screen {self.name}')
 
     def on_leave(self):
         print(f'Leaving {self.name}.')
+    def on_dark_mode_changed(self, instance, value):
+        app = App.get_running_app()
+        app.set_dark_mode(value)
