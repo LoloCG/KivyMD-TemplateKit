@@ -18,15 +18,14 @@ class MainApp(MDApp):
         self.screen_history = []
 
     def build(self):
-        self.add_theme_and_palette()
-
         kv_path = os.path.join(os.path.dirname(__file__), 'main_layout.kv')
         self.root = Builder.load_file(kv_path)
         print(f"Loaded main_layout.kv file.")
 
         self.sm = self.root.ids.screen_manager
-
         self.add_screen("home_screen")
+
+        self.add_theme_and_palette()
 
         return self.root
 
@@ -59,16 +58,19 @@ class MainApp(MDApp):
     # ========================= Related to Styling =========================
 
     def add_theme_and_palette(self):
-        palette = "Blue" # "Olive", "Purple", "Red"
+        palette = "Red" # "Olive", "Purple", "Red"
 
         self.theme_cls.primary_palette = palette
+        self.theme_cls.accent_palette = "Amber" # Not sure what this even does... 
+
+        self.theme_cls.theme_style = "Dark" # placeholder to initiate already in dark mode
 
         print(f"Primary_palette = {palette}")
 
-    def set_dark_mode(self, value):
-        print(f"Setting dark mode to {'ON' if value else 'OFF'}")
+    def set_dark_mode(self, checkbox, value):
+        print(f'Changing theme to ', "Dark" if value else "Ligth")
         self.theme_cls.theme_style = "Dark" if value else "Light"
-
+        
     # ========================= Related to Screen changes =========================
     def switch_screen(self, screen_name):
         prev_screen = self.sm.current  

@@ -1,53 +1,10 @@
-from kivy.lang import Builder
 from kivy.app import App
 from kivymd.uix.screen import MDScreen
 
-SettingsScreen_layout = """
-MDBoxLayout:
-    name: "settings_screen"
-    orientation: 'vertical'
-    md_bg_color: self.theme_cls.secondaryContainerColor
-    
-    MDLabel:
-        text: "Settings"
-        halign: "center"
-        pos_hint: {"top": 1}
-        size_hint_y: None
-        height: dp(56)
-        padding: dp(10)
-
-    ScrollView:
-        id: scroll_container
-        do_scroll_y: True
-        adaptive_height: True
-        bar_width: dp(10)
-
-        MDBoxLayout:
-            orientation: 'vertical'
-            spacing: dp(15)
-            padding: dp(20)
-            pos_hint: {"top": 1}
-            size_hint_y: None
-            adaptive_height: True
-
-
-            MDBoxLayout:
-                orientation: 'horizontal'
-                spacing: dp(10)
-                size_hint_y: None
-                height: dp(56)
-                pos_hint: {'center_x': .5, 'center_y': .5}
-                
-                MDLabel:
-                    text: "Light/Dark Theme"
-                    halign: "left"
-
-                MDSwitch:
-                    id: dark_mode_switch
-                    ripple_effect: False
-"""
-
-
+import os
+from kivy.lang import Builder
+kv_path = os.path.join(os.path.dirname(__file__), 'SettingsScreen_layout.kv')
+Builder.load_file(kv_path)
 
 class SettingsScreen(MDScreen):
     def __init__(self, **kwargs):
@@ -55,17 +12,13 @@ class SettingsScreen(MDScreen):
         print(f'Loading screen {self.name}')
 
         print(f'Adding SettingsScreen layout')
-        layout = Builder.load_string(SettingsScreen_layout)
-        self.add_widget(layout)
-
-        layout.ids.dark_mode_switch.bind(active=self.on_dark_mode_changed)
-
+        
     def on_enter(self):
         print(f'In screen {self.name}')
 
     def on_leave(self):
         print(f'Leaving {self.name}.')
 
-    def on_dark_mode_changed(self, instance, value):
-        app = App.get_running_app()
-        app.set_dark_mode(value)
+    # def on_dark_mode_changed(self, instance, value):
+    #     app = App.get_running_app()
+    #     app.set_dark_mode(value)
