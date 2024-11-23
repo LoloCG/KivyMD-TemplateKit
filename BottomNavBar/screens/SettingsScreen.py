@@ -18,7 +18,3 @@ class SettingsScreen(MDScreen):
 
     def on_leave(self):
         print(f'Leaving {self.name}.')
-
-    # def on_dark_mode_changed(self, instance, value):
-    #     app = App.get_running_app()
-    #     app.set_dark_mode(value)

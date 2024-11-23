@@ -25,8 +25,8 @@ class MainApp(MDApp):
         self.sm = self.root.ids.screen_manager
         self.add_screen("home_screen")
 
-        self.add_theme_and_palette()
-
+        self.set_theme_and_palette_at_start()
+        
         return self.root
 
     def add_screen(self, screen_name):
@@ -57,15 +57,19 @@ class MainApp(MDApp):
 
     # ========================= Related to Styling =========================
 
-    def add_theme_and_palette(self):
+    def set_theme_and_palette_at_start(self):
         palette = "Red" # "Olive", "Purple", "Red"
-
         self.theme_cls.primary_palette = palette
-        self.theme_cls.accent_palette = "Amber" # Not sure what this even does... 
 
-        self.theme_cls.theme_style = "Dark" # placeholder to initiate already in dark mode
-
-        print(f"Primary_palette = {palette}")
+        self.theme_cls.theme_style = "Dark"
+        if not self.sm.has_screen("settings_screen"):
+            self.add_screen("settings_screen")
+        settings_screen = self.sm.get_screen("settings_screen")
+        settings_screen.ids.dark_mode_switch.active = self.theme_cls.theme_style == "Dark"
+        
+        self.theme_cls.theme_style_switch_animation = True
+        
+        print(f"Primary_palette = {self.theme_cls.primary_palette}, theme = {self.theme_cls.theme_style}")
 
     def set_dark_mode(self, checkbox, value):
         print(f'Changing theme to ', "Dark" if value else "Ligth")
