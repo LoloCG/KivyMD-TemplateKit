@@ -11,6 +11,12 @@ class SettingsScreen(MDScreen):
         super().__init__(**kwargs)
         print(f'Loading screen {self.name}')
         
+    def on_kv_post(self,base_widget):
+        print(f"DEBUG: theme == {self.theme_cls.theme_style}")
+        if self.theme_cls.theme_style == "Dark":
+            self.ids.dark_mode_switch.active = True
+        else: self.ids.dark_mode_switch.active = False
+
     def on_enter(self):
         print(f'In screen {self.name}')
 
