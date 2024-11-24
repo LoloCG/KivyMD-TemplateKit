@@ -30,6 +30,9 @@ class MainApp(MDApp):
         return self.root
 
     def add_screen(self, screen_name):
+        if self.sm.has_screen(screen_name):
+            return
+            
         if screen_name == "home_screen":
             self.sm.add_widget(HomeScreen(
                 name="home_screen")
@@ -58,14 +61,19 @@ class MainApp(MDApp):
     # ========================= Related to Styling =========================
 
     def set_theme_and_palette_at_start(self):
+        # define the defaults
         palette = "Red" # "Olive", "Purple", "Red"
+        theme = "Dark"
+
         self.theme_cls.primary_palette = palette
 
-        self.theme_cls.theme_style = "Dark"
+        self.theme_cls.theme_style = theme
+        # Update the switch to dark mode button on settings
         if not self.sm.has_screen("settings_screen"):
             self.add_screen("settings_screen")
         settings_screen = self.sm.get_screen("settings_screen")
         settings_screen.ids.dark_mode_switch.active = self.theme_cls.theme_style == "Dark"
+        # self.sm.remove_widget(self.sm.get_screen("settings_screen"))
         
         self.theme_cls.theme_style_switch_animation = True
         

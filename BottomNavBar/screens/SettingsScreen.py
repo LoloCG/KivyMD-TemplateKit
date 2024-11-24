@@ -10,8 +10,6 @@ class SettingsScreen(MDScreen):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         print(f'Loading screen {self.name}')
-
-        print(f'Adding SettingsScreen layout')
         
     def on_enter(self):
         print(f'In screen {self.name}')
