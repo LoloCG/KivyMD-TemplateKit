@@ -1,3 +1,5 @@
+# v0.1.0
+# 
 import os
 from kivymd.app import MDApp
 
@@ -62,10 +64,12 @@ class MainApp(MDApp):
 
     def set_theme_and_palette_at_start(self):
         # define the defaults
-        palette = "Red" # "Olive", "Purple", "Red"
+        prim_palette = "Red" # "Olive", "Purple", "Red"
+        acc_palette = "Green"
         theme = "Dark"
 
-        self.theme_cls.primary_palette = palette
+        self.theme_cls.primary_palette = prim_palette
+        self.theme_cls.accent_palette = acc_palette
         self.theme_cls.theme_style = theme      
 
         self.theme_cls.theme_style_switch_animation = True

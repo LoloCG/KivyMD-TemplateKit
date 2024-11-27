@@ -1,5 +1,5 @@
 <HomeScreen>:
-    # md_bg_color: self.theme_cls.primaryContainerColor
+    md_bg_color: self.theme_cls.primaryContainerColor
     name: "home_screen"
 
     MDBoxLayout:
@@ -8,3 +8,17 @@
         MDLabel:
             text: "Home Screen"
             halign: "center"
+
+        MDButton:
+            style: "elevated"
+            pos_hint: {"center_x": .5, "center_y": .5}
+            # halign: "center"
+            
+            MDButtonIcon:
+                icon: "home"
+
+            MDButtonText:
+                text: "Nothing"
+
+
+        Widget:  # Spacer to push the button upwards
