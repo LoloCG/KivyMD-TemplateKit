@@ -1,4 +1,4 @@
-# v0.1.1
+# v0.1.2
 # 
 import os
 from kivymd.app import MDApp
@@ -24,13 +24,38 @@ class MainApp(MDApp):
         self.root = Builder.load_file(kv_path)
         print(f"Loaded main_layout.kv file.")
 
+        self.set_theme_and_palette_at_start()
+
+
         self.sm = self.root.ids.screen_manager
         self.add_screen("home_screen")
 
-        self.set_theme_and_palette_at_start()
-        
         return self.root
 
+    def on_stop(self):
+        print("Closing KivyMD App.")
+
+    # ========================= Related to Styling =========================
+
+    def set_theme_and_palette_at_start(self):
+        # define the defaults
+        prim_palette = "Red" # "Olive", "Purple", "Red"
+        acc_palette = "Green"
+        theme = "Dark"
+
+        self.theme_cls.primary_palette = prim_palette
+        self.theme_cls.accent_palette = acc_palette
+        self.theme_cls.theme_style = theme      
+
+        self.theme_cls.theme_style_switch_animation = True
+        
+        print(f"Primary_palette = {self.theme_cls.primary_palette},\ntheme = {self.theme_cls.theme_style}")
+
+    def set_dark_mode(self, checkbox, value):
+        print(f'Changing theme to ', "Dark" if value else "Ligth")
+        self.theme_cls.theme_style = "Dark" if value else "Light"
+        
+    # ========================= Related to Screen changes =========================
     def add_screen(self, screen_name):
         if self.sm.has_screen(screen_name):
             return
@@ -57,30 +82,6 @@ class MainApp(MDApp):
 
         print(f"Added {screen_name} to manager.")
 
-    def on_stop(self):
-        print("Closing KivyMD App.")
-
-    # ========================= Related to Styling =========================
-
-    def set_theme_and_palette_at_start(self):
-        # define the defaults
-        prim_palette = "Red" # "Olive", "Purple", "Red"
-        acc_palette = "Green"
-        theme = "Dark"
-
-        self.theme_cls.primary_palette = prim_palette
-        self.theme_cls.accent_palette = acc_palette
-        self.theme_cls.theme_style = theme      
-
-        self.theme_cls.theme_style_switch_animation = True
-        
-        print(f"Primary_palette = {self.theme_cls.primary_palette},\ntheme = {self.theme_cls.theme_style}")
-
-    def set_dark_mode(self, checkbox, value):
-        print(f'Changing theme to ', "Dark" if value else "Ligth")
-        self.theme_cls.theme_style = "Dark" if value else "Light"
-        
-    # ========================= Related to Screen changes =========================
     def switch_screen(self, screen_name):
         prev_screen = self.sm.current  
         if prev_screen == screen_name:
@@ -89,19 +90,24 @@ class MainApp(MDApp):
         
         print(f"Switching to screen: {screen_name}")
         try:
-            self.add_screen(screen_name)
+            self.add_screen(screen_name)                
             self.sm.current = screen_name
 
-            if prev_screen:
-                self.sm.remove_widget(self.sm.get_screen(prev_screen))
-                if prev_screen not in self.screen_history:
-                    self.screen_history.append(prev_screen)
+            if prev_screen and prev_screen not in self.screen_history:
+                # Ensures removed screens are tracked in history for debugging or reuse
+                self.screen_history.append(prev_screen)
+
+            if len(self.screen_history) > 2:  # Keep the last two screens
+                oldest_screen = self.screen_history.pop(0)
+                if self.sm.has_screen(oldest_screen):
+                    self.sm.remove_widget(self.sm.get_screen(oldest_screen))
+                    logger.debug(f"Removed screen: {oldest_screen}")
             
             self.update_back_button()
 
         except Exception as e:
-            print(f"Error changing screen to '{screen_name}': {e}")
-    
+            logger.debug(f"Error changing screen to '{screen_name}': {e}")
+        
     def go_back_screen(self):
         if not self.screen_history:
             print("No screens in history.")

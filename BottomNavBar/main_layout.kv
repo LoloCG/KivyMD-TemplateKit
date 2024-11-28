@@ -5,10 +5,10 @@ MDBoxLayout:
 
     MDTopAppBar:
         id: top_bar
-        md_bg_color: self.theme_cls.primaryContainerColor
         type: "small"
         pos_hint: {"top": 1}
         size_hint_x: 1
+        elevation: 4
         # allow_hidden: True    # not sure what this dues
                 
         MDTopAppBarLeadingButtonContainer:
@@ -36,7 +36,7 @@ MDBoxLayout:
         MDNavigationItem:
             on_press: app.switch_screen("second_screen")
             MDNavigationItemIcon:
-                icon: "numeric-2" #"dumbbell"
+                icon: "numeric-2"
             MDNavigationItemLabel:
                 text: "Screen 2"
                 
@@ -51,7 +51,7 @@ MDBoxLayout:
         MDNavigationItem:
             on_press: app.switch_screen("third_screen")
             MDNavigationItemIcon:
-                icon: "numeric-3" # "chart-line"
+                icon: "numeric-3"
             MDNavigationItemLabel:
                 text: "Screen 3"
 
