@@ -1,7 +1,5 @@
-MDBoxLayout:
-    # md_bg_color: self.theme_cls.backgroundColor 
+MDFloatLayout:
     md_bg_color: self.theme_cls.primaryContainerColor
-    orientation: 'vertical'
 
     MDTopAppBar:
         id: top_bar
@@ -55,5 +53,26 @@ MDBoxLayout:
             MDNavigationItemLabel:
                 text: "Screen 3"
 
-        
+
+    MDFloatLayout:
+        id: progress_overlay
+        size_hint: None, None
+        height: self.parent.height  
+        width: self.parent.width  
+        pos: self.parent.pos
+        opacity: 0
+        canvas.before: 
+            # ensures the background is rendered before any child widgets 
+            Color:
+                rgba: 0.85, 0.85, 0.85, 0.5  # Semi-transparent white
+            Rectangle:
+                pos: self.pos
+                size: self.size
+
+        MDCircularProgressIndicator:
+            id: main_progress_bar
+            size_hint: None, None
+            size: "48dp", "48dp"
+            determinate: False
+            pos_hint: {"center_x": 0.5, "center_y": 0.5}
 

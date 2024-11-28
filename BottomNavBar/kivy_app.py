@@ -1,4 +1,4 @@
-# v0.1.2
+# v0.1.3
 # 
 import os
 from kivymd.app import MDApp
@@ -26,6 +26,7 @@ class MainApp(MDApp):
 
         self.set_theme_and_palette_at_start()
 
+        self.progress_bar(start=True)
 
         self.sm = self.root.ids.screen_manager
         self.add_screen("home_screen")
@@ -34,6 +35,18 @@ class MainApp(MDApp):
 
     def on_stop(self):
         print("Closing KivyMD App.")
+
+    def progress_bar(self, start=True):
+        if start == True:
+            print("Starting progress bar")
+            self.root.disabled = True
+            self.root.ids.progress_overlay.opacity = 1
+            self.root.ids.main_progress_bar.start = True
+        else:
+            print("Stopping progress bar")
+            self.root.disabled = False
+            self.root.ids.progress_overlay.opacity = 0
+            self.root.ids.main_progress_bar.start = False
 
     # ========================= Related to Styling =========================
 
@@ -101,12 +114,12 @@ class MainApp(MDApp):
                 oldest_screen = self.screen_history.pop(0)
                 if self.sm.has_screen(oldest_screen):
                     self.sm.remove_widget(self.sm.get_screen(oldest_screen))
-                    logger.debug(f"Removed screen: {oldest_screen}")
+                    print(f"Removed screen: {oldest_screen}")
             
             self.update_back_button()
 
         except Exception as e:
-            logger.debug(f"Error changing screen to '{screen_name}': {e}")
+            print(f"Error changing screen to '{screen_name}': {e}")
         
     def go_back_screen(self):
         if not self.screen_history:
