@@ -1,5 +1,6 @@
 from kivy.lang import Builder
 from kivymd.uix.screen import MDScreen
+from kivymd.app import MDApp
 
 from kivymd.uix.label import MDLabel
 from kivymd.uix.tab import (
@@ -10,13 +11,11 @@ from kivymd.uix.tab import (
 Builder.load_string("""
 <SecondScreen>:
     name: "second_screen"
-    # md_bg_color: self.theme_cls.backgroundColor
 
     MDTabsPrimary:
         id: main_tabs
         pos_hint: {"center_x": .5, "top": 1}
         label_only: True
-        # allow_stretch: False
 
         MDDivider:
         
@@ -54,18 +53,18 @@ class SecondScreen(MDScreen):
         print(f'Loading screen {self.name}')
 
     def on_pre_enter(self):
+        # If there are tabs present, dont set up any of them
+        if self.ids.main_tabs.get_tabs_list(): 
+            return
+
         tab_list = ["Tab 1", "Tab 2", "Tab 3", "Tab 4", "Tab 5"]
         self.setup_tabs(tab_list)
 
     def setup_tabs(self, tab_list):
-        if 'main_tabs' not in self.ids:
-            print("main_tabs ID is missing.")
-            return
-            
         print(f"Creating tabs.")
         try:
-            n = 1
             for tab_name in tab_list:
+            
                 new_tab = MDTabsItem(
                     MDTabsItemText(
                         text=tab_name
@@ -83,17 +82,29 @@ class SecondScreen(MDScreen):
                         halign="center",
                     )
                 )
-            
-                n += 1
-                
+                            
             self.ids.main_tabs.switch_tab(text=tab_list[0])
 
         except Exception as e:
             print(f"Error in setup_tabs: {e}")
 
+    def on_enter(self):
+        app = MDApp.get_running_app()
+        app.progress_bar(start=False)
+        print(f"Entered HomeScreen.")
+
+    def on_pre_leave(self):
+        pass
+        # print("clearing main_tabs widgets")
+        # self.ids.main_tabs.clear_widgets()
 
     def on_leave(self):
         print(f'Leaving {self.name}.')
+
+        # Enabling the clearing of tabs causes error of them not reappearing when 
+            # returning back to home_screen, returning at random.
+            # Maybe its due to MDTabsPrimary being in the KV file?
+        # self.clear_widgets()
 
 class ThirdScreen(MDScreen):
     def __init__(self, **kwargs):
