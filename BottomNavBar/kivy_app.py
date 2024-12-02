@@ -1,4 +1,4 @@
-# v0.1.3
+# v0.1.4
 # 
 import os
 from kivymd.app import MDApp
@@ -51,18 +51,13 @@ class MainApp(MDApp):
     # ========================= Related to Styling =========================
 
     def set_theme_and_palette_at_start(self):
-        # define the defaults
-        prim_palette = "Red" # "Olive", "Purple", "Red"
-        acc_palette = "Green"
-        theme = "Dark"
+        self.theme_cls.primary_palette = "Blue"
+        # self.theme_cls.secondary_palette = "Blue"
+        self.theme_cls.accent_palette = "Amber"  
+        self.theme_cls.theme_style = "Light"
+        # self.theme_cls.primary_hue = "900"
 
-        self.theme_cls.primary_palette = prim_palette
-        self.theme_cls.accent_palette = acc_palette
-        self.theme_cls.theme_style = theme      
-
-        self.theme_cls.theme_style_switch_animation = True
-        
-        print(f"Primary_palette = {self.theme_cls.primary_palette},\ntheme = {self.theme_cls.theme_style}")
+        # self.theme_cls.theme_style_switch_animation = True
 
     def set_dark_mode(self, checkbox, value):
         print(f'Changing theme to ', "Dark" if value else "Ligth")
@@ -107,14 +102,16 @@ class MainApp(MDApp):
             self.sm.current = screen_name
 
             if prev_screen and prev_screen not in self.screen_history:
-                # Ensures removed screens are tracked in history for debugging or reuse
                 self.screen_history.append(prev_screen)
+                print(f"Added to self.screen_history = {self.screen_history}")
 
-            if len(self.screen_history) > 2:  # Keep the last two screens
+            if len(self.screen_history) > 2 and screen_name == prev_screen:
                 oldest_screen = self.screen_history.pop(0)
                 if self.sm.has_screen(oldest_screen):
                     self.sm.remove_widget(self.sm.get_screen(oldest_screen))
+                    
                     print(f"Removed screen: {oldest_screen}")
+                    print(f"self.screen_history = {self.screen_history}")
             
             self.update_back_button()
 

@@ -1,58 +1,62 @@
 MDFloatLayout:
     md_bg_color: self.theme_cls.primaryContainerColor
 
-    MDTopAppBar:
-        id: top_bar
-        type: "small"
-        pos_hint: {"top": 1}
-        size_hint_x: 1
-        elevation: 4
-        # allow_hidden: True    # not sure what this dues
-                
-        MDTopAppBarLeadingButtonContainer:
-            MDActionTopAppBarButton:
-                id: back_leading_button
-                icon: ""
-                on_press: app.go_back_screen()
-                
-        MDTopAppBarTitle:
-            # If changed, the TrailingButtonContainer gets to the left... do not touch
-            text: " "
-            halign: "left"
+    MDBoxLayout:
+        orientation: 'vertical'
+        size_hint: 1, 1
+        padding: 0.1, 0.1    # allows fixing https://github.com/kivymd/KivyMD/issues/1700 with MDTopAppBarTitle
 
-        MDTopAppBarTrailingButtonContainer:
-            MDActionTopAppBarButton:
-                id: dots_menu
-                icon: "dots-vertical"
-                on_press: app.open_top_menu(self)
+        MDTopAppBar:
+            id: top_bar
+            type: "small"
+            pos_hint: {"top": 1}
+            size_hint: 1, None
+            height: "56dp"
+            elevation: 4                 
+               
+            MDTopAppBarLeadingButtonContainer:
+                MDActionTopAppBarButton:
+                    id: back_leading_button
+                    icon: ""
+                    on_press: app.go_back_screen()
+                    
+            MDTopAppBarTitle:
+                # If changed, the TrailingButtonContainer gets to the left... do not touch
+                text: " "
+                halign: "left"
 
-    ScreenManager:
-        id: screen_manager
+            MDTopAppBarTrailingButtonContainer:
+                MDActionTopAppBarButton:
+                    id: dots_menu
+                    icon: "dots-vertical"
+                    on_press: app.open_top_menu(self)
 
-    MDNavigationBar:
-        halign: 'center'
-        MDNavigationItem:
-            on_press: app.switch_screen("second_screen")
-            MDNavigationItemIcon:
-                icon: "numeric-2"
-            MDNavigationItemLabel:
-                text: "Screen 2"
-                
-        MDNavigationItem:
-            active: True
-            on_press: app.switch_screen("home_screen")
-            MDNavigationItemIcon:
-                icon: "home"
-            MDNavigationItemLabel:
-                text: "Home"
+        ScreenManager:
+            id: screen_manager
 
-        MDNavigationItem:
-            on_press: app.switch_screen("third_screen")
-            MDNavigationItemIcon:
-                icon: "numeric-3"
-            MDNavigationItemLabel:
-                text: "Screen 3"
+        MDNavigationBar:
+            # halign: 'center' # doesnt have any difference?
+            MDNavigationItem:
+                on_press: app.switch_screen("second_screen")
+                MDNavigationItemIcon:
+                    icon: "numeric-2"
+                MDNavigationItemLabel:
+                    text: "Tabs Example"
+                    
+            MDNavigationItem:
+                active: True
+                on_press: app.switch_screen("home_screen")
+                MDNavigationItemIcon:
+                    icon: "home"
+                MDNavigationItemLabel:
+                    text: "Home"
 
+            MDNavigationItem:
+                on_press: app.switch_screen("third_screen")
+                MDNavigationItemIcon:
+                    icon: "numeric-3"
+                MDNavigationItemLabel:
+                    text: "Screen 3"
 
     MDFloatLayout:
         id: progress_overlay
@@ -62,7 +66,6 @@ MDFloatLayout:
         pos: self.parent.pos
         opacity: 0
         canvas.before: 
-            # ensures the background is rendered before any child widgets 
             Color:
                 rgba: 0.85, 0.85, 0.85, 0.5  # Semi-transparent white
             Rectangle:
@@ -75,4 +78,14 @@ MDFloatLayout:
             size: "48dp", "48dp"
             determinate: False
             pos_hint: {"center_x": 0.5, "center_y": 0.5}
+            
+            # indicator_color: app.theme_cls.errorColor
+            # indicator_color: "Red"
+            # track_color: "Gray"
 
+            # # on_determinate_complete: print(args)
+
+        # MDLabel:
+        #     text: "Processing..."
+        #     halign: "center"
+        #     pos_hint: {"center_x": 0.5, "center_y": 0.4}
