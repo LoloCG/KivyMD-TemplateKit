@@ -11,6 +11,7 @@ from kivymd.uix.button import MDButton, MDButtonText
 from screens.HomeScreen import HomeScreen
 from screens.SettingsScreen import SettingsScreen
 from screens.Screen2_3 import SecondScreen, ThirdScreen
+from screens.ExpansionPanelScreen import ExpansionScreen
 
 from kivy.lang import Builder
 
@@ -62,7 +63,7 @@ class MainApp(MDApp):
     def set_dark_mode(self, checkbox, value):
         print(f'Changing theme to ', "Dark" if value else "Ligth")
         self.theme_cls.theme_style = "Dark" if value else "Light"
-        
+
     # ========================= Related to Screen changes =========================
     def add_screen(self, screen_name):
         if self.sm.has_screen(screen_name):
@@ -86,6 +87,11 @@ class MainApp(MDApp):
         elif screen_name == "third_screen":
             self.sm.add_widget(ThirdScreen(
                 name="third_screen")
+            )
+            
+        elif screen_name == "exp_panel_screen":
+            self.sm.add_widget(ExpansionScreen(
+                name="exp_panel_screen")
             )
 
         print(f"Added {screen_name} to manager.")
@@ -117,7 +123,7 @@ class MainApp(MDApp):
 
         except Exception as e:
             print(f"Error changing screen to '{screen_name}': {e}")
-        
+
     def go_back_screen(self):
         if not self.screen_history:
             print("No screens in history.")

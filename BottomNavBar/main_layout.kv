@@ -58,6 +58,13 @@ MDFloatLayout:
                 MDNavigationItemLabel:
                     text: "Screen 3"
 
+            MDNavigationItem:
+                on_press: app.switch_screen("exp_panel_screen")
+                MDNavigationItemIcon:
+                    icon: "numeric-4"
+                MDNavigationItemLabel:
+                    text: "Expansion Panel"
+
     MDFloatLayout:
         id: progress_overlay
         size_hint: None, None
