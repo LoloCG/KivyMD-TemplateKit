@@ -6,11 +6,9 @@ from kivymd.uix.boxlayout import MDBoxLayout
 from kivymd.uix.expansionpanel import MDExpansionPanel, MDExpansionPanelHeader, MDExpansionPanelContent
 from kivymd.uix.label import MDLabel
 from kivymd.uix.button import MDButton, MDButtonText
-from kivymd.uix.list import MDListItemHeadlineText, MDListItem
+# from kivymd.uix.list import MDListItemHeadlineText, MDListItem
 
 from kivy.uix.behaviors import ButtonBehavior
-
-
 
 Builder.load_string("""
 <ExpansionScreen>:
@@ -25,7 +23,6 @@ Builder.load_string("""
             # padding: "10dp"
             pos_hint: {"top": 1}
             adaptive_height: True
-    
 
 <MyPanelHeader>:
     orientation: "horizontal"
@@ -39,18 +36,21 @@ Builder.load_string("""
 
         MDListItemHeadlineText:
             id: header_text
-            halign: "center"
+            halign: "left"
 """)
 
 class MyPanelHeader(ButtonBehavior, MDExpansionPanelHeader):
-    def __init__(self, text, **kwargs):
+    def __init__(self, text, panel, **kwargs):
         super(MyPanelHeader, self).__init__(**kwargs)
         self.ids.header_text.text = text
-        self.text = text
+        self.panel = panel
 
     def on_release(self):
-        print(f"Button {self.text} pressed")
-
+        if self.panel.is_open:
+            self.panel.close()
+        else:
+            self.panel.open()
+        print(f"clicked {self.ids.header_text.text}")
 
 class ExpansionScreen(MDScreen):
     def __init__(self, **kwargs):
@@ -67,20 +67,26 @@ class ExpansionScreen(MDScreen):
     def setup_panels(self, panels):
 
         for panel_title, panel_cont in panels.items():
-            header = MyPanelHeader(text=panel_title)
-        
-            content = MDExpansionPanelContent(
-                MDLabel(
-                    # text=panel_cont,
-                    # adaptive_height=True,
-                ),
-                orientation= "vertical",
-            )
 
             panel = MDExpansionPanel(
                 orientation='vertical',
                 pos_hint={"center_x": .5, "top": 1},
-                # height="80dp"
+            )
+
+            header = MyPanelHeader(
+                text=panel_title,
+                panel=panel,
+            )
+        
+            content = MDExpansionPanelContent(
+                MDLabel(
+                    text=panel_cont,
+                    adaptive_height=True,
+                    padding=("16dp", "12dp"),
+                ),
+                md_bg_color= self.theme_cls.surfaceContainerLowestColor,
+                padding=("16dp", "12dp"),
+                orientation= "vertical",
             )
 
             panel.add_widget(header)
