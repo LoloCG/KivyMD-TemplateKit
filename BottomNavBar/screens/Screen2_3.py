@@ -26,7 +26,12 @@ Builder.load_string("""
             lock_swiping: True
 
 <ThirdScreen>:
-    size_hint: 1, 1
+    # canvas.before:
+    #     Color:
+    #         rgba: 1, 0, 0, 0.3  # Red with some transparency
+    #     Rectangle:
+    #         size: self.size
+    #         pos: self.pos
 
     BoxLayout:
         name: "third_screen"
@@ -38,7 +43,7 @@ Builder.load_string("""
 
         MDButton:
             style: "elevated"
-            pos_hint: {'center_x': 0.5}
+            pos_hint: {'center_x': 0.5, 'top': 1}
             on_release: print("Button of screen 3 pressed.")
 
             MDButtonText:
