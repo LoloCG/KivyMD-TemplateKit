@@ -1,0 +1,62 @@
+MDFloatLayout:
+    md_bg_color: self.theme_cls.primaryContainerColor
+
+    MDNavigationLayout:
+
+        ScreenManager:
+            id: screen_manager
+
+        MDNavigationDrawer:
+            id: nav_drawer
+            radius: 0, dp(16), dp(16), 0
+
+            MDNavigationDrawerMenu:
+
+                MDNavigationDrawerLabel:
+                    text: "Mail"
+
+                MDNavigationDrawerItem:
+
+                    MDNavigationDrawerItemLeadingIcon:
+                        icon: "account"
+
+                    MDNavigationDrawerItemText:
+                        text: "Inbox"
+
+                    MDNavigationDrawerItemTrailingText:
+                        text: "24"
+
+                MDNavigationDrawerDivider:
+
+            
+    MDFloatLayout:
+        id: progress_overlay
+        size_hint: None, None
+        height: self.parent.height  
+        width: self.parent.width  
+        pos: self.parent.pos
+        opacity: 0
+        canvas.before: 
+            Color:
+                rgba: 0.85, 0.85, 0.85, 0.5  # Semi-transparent white
+            Rectangle:
+                pos: self.pos
+                size: self.size
+
+        MDCircularProgressIndicator:
+            id: main_progress_bar
+            size_hint: None, None
+            size: "48dp", "48dp"
+            determinate: False
+            pos_hint: {"center_x": 0.5, "center_y": 0.5}
+            
+            # indicator_color: app.theme_cls.errorColor
+            # indicator_color: "Red"
+            # track_color: "Gray"
+
+            # # on_determinate_complete: print(args)
+
+        # MDLabel:
+        #     text: "Processing..."
+        #     halign: "center"
+        #     pos_hint: {"center_x": 0.5, "center_y": 0.4}

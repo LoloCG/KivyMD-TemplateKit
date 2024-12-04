@@ -1,0 +1,23 @@
+<HomeScreen>:
+    name: "home_screen"
+
+    MDBoxLayout:
+        orientation: 'vertical'
+        size_hint: 1, 1
+
+        MDLabel:
+            text: "Home Screen test button"
+            halign: "center"
+
+        MDButton:
+            style: "elevated"
+            pos_hint: {"center_x": .5, "center_y": .5}
+            halign: "center"
+            
+            MDButtonIcon:
+                icon: "home"
+
+            MDButtonText:
+                text: "Nothing"
+
+        MDWidget:
