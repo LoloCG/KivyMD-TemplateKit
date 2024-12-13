@@ -7,28 +7,28 @@
         halign: "center"
         pos_hint: {"top": 1}
         size_hint_y: None
-        height: dp(56)
-        padding: dp(10)
+        height: "56dp"
+        padding: "10dp"
         
     ScrollView:
         id: scroll_container
         do_scroll_y: True
         adaptive_height: True
-        bar_width: dp(10)
+        bar_width: "10dp"
 
         MDBoxLayout:
             orientation: 'vertical'
-            spacing: dp(15)
-            padding: dp(20)
+            spacing: "15dp"
+            padding: "20dp"
             pos_hint: {"top": 1}
             size_hint_y: None
             adaptive_height: True
 
             MDBoxLayout:
                 orientation: 'horizontal'
-                spacing: dp(10)
+                spacing: "10dp"
                 size_hint_y: None
-                height: dp(56)
+                height: "56dp"
                 pos_hint: {'center_x': .5, 'center_y': .5}
                 
                 MDLabel:
