@@ -1,34 +1,33 @@
 MDFloatLayout:
     md_bg_color: self.theme_cls.primaryContainerColor
+    
+    MDTopAppBar:
+        id: top_bar
+        type: "small"
+        pos_hint: {"top": 1}
+        size_hint: 1, None
+        height: "56dp"
+        elevation: 4                 
+        
+        MDTopAppBarLeadingButtonContainer:
+            MDActionTopAppBarButton:
+                id: open_nav_draw_button
+                icon: "menu"
+                on_release: nav_drawer.set_state("toggle")
+                
+        MDTopAppBarTitle:
+            # If changed, the TrailingButtonContainer gets to the left... do not touch
+            text: " "
+            halign: "left"
 
     MDNavigationLayout:
-
         ScreenManager:
             id: screen_manager
 
         MDNavigationDrawer:
             id: nav_drawer
-            radius: 0, dp(16), dp(16), 0
+            radius: 0, "16dp", "16dp", 0
 
-            MDNavigationDrawerMenu:
-
-                MDNavigationDrawerLabel:
-                    text: "Mail"
-
-                MDNavigationDrawerItem:
-
-                    MDNavigationDrawerItemLeadingIcon:
-                        icon: "account"
-
-                    MDNavigationDrawerItemText:
-                        text: "Inbox"
-
-                    MDNavigationDrawerItemTrailingText:
-                        text: "24"
-
-                MDNavigationDrawerDivider:
-
-            
     MDFloatLayout:
         id: progress_overlay
         size_hint: None, None
