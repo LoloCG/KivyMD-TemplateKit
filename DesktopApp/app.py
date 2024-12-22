@@ -1,5 +1,3 @@
-# v0.1.0Desktop
-# 
 import os
 from kivymd.app import MDApp
 
@@ -9,7 +7,7 @@ from kivymd.uix.dialog import MDDialog, MDDialogHeadlineText, MDDialogSupporting
 from kivymd.uix.button import MDButton, MDButtonText
 
 from screens.HomeScreen import HomeScreen
-# from screens.SettingsScreen import SettingsScreen
+from screens.SettingsScreen import SettingsScreen
 # from screens.Screen2_3 import SecondScreen, ThirdScreen
 # from screens.ExpansionPanelScreen import ExpansionScreen
 
@@ -23,8 +21,7 @@ class MainApp(MDApp):
     def build(self):
         kv_path = os.path.join(os.path.dirname(__file__), 'main_layout.kv')
         self.root = Builder.load_file(kv_path)
-        print(f"Loaded main_layout.kv file.")
-
+        
         self.set_theme_and_palette_at_start()
 
         self.progress_bar(start=True)
@@ -49,9 +46,14 @@ class MainApp(MDApp):
             self.root.ids.progress_overlay.opacity = 0
             self.root.ids.main_progress_bar.start = False
 
+    def define_screens(self):
+        
+        pass
+
     # ========================= Related to Styling =========================
 
     def set_theme_and_palette_at_start(self):
+        # TODO: substitute this with loading from a config.json file
         self.theme_cls.primary_palette = "Blue"
         # self.theme_cls.secondary_palette = "Blue"
         self.theme_cls.accent_palette = "Amber"  
@@ -72,6 +74,11 @@ class MainApp(MDApp):
         if screen_name == "home_screen":
             self.sm.add_widget(HomeScreen(
                 name="home_screen")
+            )
+
+        if screen_name == "settings_screen":
+            self.sm.add_widget(SettingsScreen(
+                name="settings_screen")
             )
 
         print(f"Added {screen_name} to manager.")
@@ -123,7 +130,7 @@ class MainApp(MDApp):
 
         self.update_back_button()
 
-    def update_back_button(self):
+    def update_back_button(self): # Not used here, remove if not necessary
         back_leading_button = self.root.ids.back_leading_button
         if len(self.screen_history) == 0:
             back_leading_button.disabled = True 
