@@ -26,7 +26,48 @@ MDFloatLayout:
 
         MDNavigationDrawer:
             id: nav_drawer
-            radius: 0, "16dp", "16dp", 0
+            radius: 0, "12dp", "12dp", 0
+            size_hint_y: 1
+
+            MDNavigationDrawerMenu: # It is basically a scrollview
+                id: nav_drawer_menu
+                size_hint_y: 1
+
+                MDNavigationDrawerHeader:
+                    orientation: "horizontal"
+                    # size_hint_y: None
+                    # height: "84dp"
+                    # padding: 5, 5
+                    # spacing: "10dp"
+                    # pos_hint: {'center_y': 0.75} 
+                    # spacing: 5, 5
+
+                    MDLabel:
+                        id: header_title
+                        text: "Header title"
+                        size_hint_y: None
+                        height: "64dp"
+                    
+                    MDIcon:
+                        icon: "menu"
+                        pos_hint: {'center_y': 0.5} 
+
+                    Widget:
+                        size_hint_x: None
+                        width: "10dp"
+                    
+                MDNavigationDrawerDivider:
+                    adaptive_height: True
+                    # orientation: 'horizontal'               
+                
+                MDNavigationDrawerItem:
+                    # size_hint_y: 0.3
+                    on_release: app.switch_screen("settings_screen")
+
+                    MDNavigationDrawerItemLeadingIcon:
+                        icon: "cog"
+                    MDNavigationDrawerItemText:
+                        text: "Application Settings"
 
     MDFloatLayout:
         id: progress_overlay
