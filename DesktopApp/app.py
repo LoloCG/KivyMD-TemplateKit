@@ -71,17 +71,16 @@ class MainApp(MDApp):
         if self.sm.has_screen(screen_name):
             return
 
-        if screen_name == "home_screen":
-            self.sm.add_widget(HomeScreen(
-                name="home_screen")
-            )
+        try:
+            if screen_name == "home_screen":
+                self.sm.add_widget(HomeScreen(name="home_screen"))
+            
+            elif screen_name == "settings_screen":
+                self.sm.add_widget(SettingsScreen(name="settings_screen"))
 
-        if screen_name == "settings_screen":
-            self.sm.add_widget(SettingsScreen(
-                name="settings_screen")
-            )
-
-        print(f"Added {screen_name} to manager.")
+            print(f"Added {screen_name} to manager.")
+        except Exception as e:
+            print(f"Error adding screen '{screen_name}': {e}")
 
     def switch_screen(self, screen_name):
         prev_screen = self.sm.current  
@@ -106,38 +105,8 @@ class MainApp(MDApp):
                     print(f"Removed screen: {oldest_screen}")
                     print(f"self.screen_history = {self.screen_history}")
             
-            self.update_back_button()
-
         except Exception as e:
             print(f"Error changing screen to '{screen_name}': {e}")
-
-    def go_back_screen(self):
-        if not self.screen_history:
-            print("No screens in history.")
-            return
-        
-        recent_screen = self.sm.current
-
-        previous_screen = self.screen_history.pop()
-        print(f"Going back to screen: {previous_screen}")
-
-        # Add the screen if it's not already in the ScreenManager
-        if not self.sm.has_screen(previous_screen):
-            self.add_screen(previous_screen)
-
-        self.sm.current = previous_screen
-        self.sm.remove_widget(self.sm.get_screen(recent_screen))
-
-        self.update_back_button()
-
-    def update_back_button(self): # Not used here, remove if not necessary
-        back_leading_button = self.root.ids.back_leading_button
-        if len(self.screen_history) == 0:
-            back_leading_button.disabled = True 
-            back_leading_button.icon = ""
-        else:
-            back_leading_button.disabled = False
-            back_leading_button.icon = "chevron-left"
 
     # ========================= Related to Menus and Dialogs =========================
     def open_top_menu(self, button):

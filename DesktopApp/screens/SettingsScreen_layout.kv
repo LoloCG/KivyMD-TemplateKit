@@ -10,35 +10,35 @@
         height: "56dp"
         padding: "10dp"
         
-    ScrollView:
-        id: scroll_container
-        do_scroll_y: True
-        adaptive_height: True
-        bar_width: "10dp"
+    # ScrollView:
+    #     id: scroll_container
+    #     do_scroll_y: True
+    #     adaptive_height: True
+    #     bar_width: "10dp"
 
-        MDBoxLayout:
-            orientation: 'vertical'
-            spacing: "15dp"
-            padding: "20dp"
-            pos_hint: {"top": 1}
-            size_hint_y: None
-            adaptive_height: True
+    #     MDBoxLayout:
+    #         orientation: 'vertical'
+    #         spacing: "15dp"
+    #         padding: "20dp"
+    #         pos_hint: {"top": 1}
+    #         size_hint_y: None
+    #         adaptive_height: True
 
-            MDBoxLayout:
-                orientation: 'horizontal'
-                spacing: "10dp"
-                size_hint_y: None
-                height: "56dp"
-                pos_hint: {'center_x': .5, 'center_y': .5}
+    #         MDBoxLayout:
+    #             orientation: 'horizontal'
+    #             spacing: "10dp"
+    #             size_hint_y: None
+    #             height: "56dp"
+    #             pos_hint: {'center_x': .5, 'center_y': .5}
                 
-                MDLabel:
-                    text: "Light/Dark Theme"
-                    halign: "left"
+    #             MDLabel:
+    #                 text: "Light/Dark Theme"
+    #                 halign: "left"
 
-                MDSwitch:
-                    id: dark_mode_switch
-                    ripple_effect: False
-                    icon_active: "check"
-                    icon_active_color: "white"
-                    thumb_color_active: "green"
-                    on_active: app.set_dark_mode(*args)
+    #             MDSwitch:
+    #                 id: dark_mode_switch
+    #                 ripple_effect: False
+    #                 icon_active: "check"
+    #                 icon_active_color: "white"
+    #                 thumb_color_active: "green"
+    #                 on_active: app.set_dark_mode(*args)
